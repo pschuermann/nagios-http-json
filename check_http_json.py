@@ -11,6 +11,7 @@ import httplib, urllib, urllib2
 import json
 import argparse
 from pprint import pprint
+from urllib2 import HTTPError
 
 
 class NagiosHelper:
@@ -143,6 +144,7 @@ def parseArgs():
 
 	parser.add_argument('-H', '--host', dest='host', required=True, help='Host.')
 	parser.add_argument('-p', '--path', dest='path', help='Path.')
+	parser.add_argument('-v', '--values', dest='values', help='Data.')
 	parser.add_argument('-e', '--key_exists', dest='key_list', nargs='*', 
 		help='Checks existence of these keys to determine status.')
 	parser.add_argument('-q', '--key_equals', dest='key_value_list', nargs='*', 
@@ -180,13 +182,18 @@ if __name__ == "__main__":
 	# Attempt to reach the endpoint
 	try:
 		req = urllib2.Request(url)
+                if args.values:
+	          debugPrint(args.debug, "values:%s" % args.values)
+                  req.add_data(args.values)
 		response = urllib2.urlopen(req)
+	        debugPrint(args.debug, "response:%s" % response)
 	except HTTPError as e:
 		nagios.unknown("HTTPError[%s], url:%s" % (str(e.code), url))
 	except URLError as e:
 		nagios.critical("URLError[%s], url:%s" % (str(e.reason), url))
 	else:
 		jsondata = response.read()
+	        debugPrint(args.debug, "jsondata:%s" % jsondata)
 		data = json.loads(jsondata)
 
 		debugPrint(args.debug, 'json:')

@@ -47,7 +47,7 @@ More info about options in Usage.
 Executing `./check_http_json.py -h` will yield the following details:
 
 ```
-usage: check_http_json.py [-h] -H HOST [-p PATH]
+usage: check_http_json.py [-h] -H HOST [-p PATH] [-v DATA]
                           [-e [KEY_LIST [KEY_LIST ...]]]
                           [-q [KEY_VALUE_LIST [KEY_VALUE_LIST ...]]]
                           [-l [KEY_LTE_LIST [KEY_LTE_LIST ...]]]
@@ -62,6 +62,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -H HOST, --host HOST  Host.
   -p PATH, --path PATH  Path.
+  -v DATA, --values DATA 
   -e [KEY_LIST [KEY_LIST ...]], --key_exists [KEY_LIST [KEY_LIST ...]]
                         Checks existence of these keys to determine status.
   -q [KEY_VALUE_LIST [KEY_VALUE_LIST ...]], --key_equals [KEY_VALUE_LIST [KEY_VALUE_LIST ...]]
